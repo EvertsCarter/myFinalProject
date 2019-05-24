@@ -68,6 +68,7 @@ class Circle {
   float yspeed=random(3);
   float velocity=.01;
 
+//Sets the ball to spawn at mouse click
   Circle() {
     this.x=mouseX;
     this.y=mouseY;
