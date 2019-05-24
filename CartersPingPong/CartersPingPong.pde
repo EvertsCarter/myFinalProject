@@ -4,8 +4,8 @@
   int yPos1 = 50;
   int xPos2 = 500;
   int yPos2 = 600;
-  int speed=1;
-  float velocity=.2;
+  int x=25;
+  int y=200;
   
   //Setup Background
 void setup() {
@@ -14,15 +14,24 @@ void setup() {
 
 //Basically the runner class
 void draw(){
+  //Sets up backgroud and paddles
   background(0, 0, 0);
   makeRect1();
   makeRect2();
+  
+ //Allows for the paddles to move
   keyPressed();
+  
+  //Spawns in Circles
    for (int i=0; i<myCircles.size(); i++) {
     myCircles.get(i).display();
   }
-
+  
+  
+ 
 }
+
+
 
 //Makes opponents paddle
 void makeRect1(){
@@ -42,7 +51,8 @@ void keyPressed(){
     xPos2+=8;
   } else if(keyCode==LEFT){
     xPos2-=8;
-  }
+  } 
+ 
 }
 
 //FIX SO THAT WHEN THE GAME STARTS, THE OPPONENT DROPS THE BALL
@@ -64,17 +74,21 @@ class Circle {
   }
 
   void display() {
-    fill(255, 0, 0);
+    fill(255, 255, 255);
     ellipse(x, y, 50, 50);
     xspeed+=velocity;
     yspeed+=velocity;
     x+=xspeed;
     y+=yspeed;
-    if (x>775) {
+    if (x>1180) {
       xspeed*=-1;
     } else if (x<25) {
       xspeed*=-1;
-    } else {
+    } else{
     }
   }
+
+  
+ 
+
 }
