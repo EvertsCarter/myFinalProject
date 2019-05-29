@@ -6,7 +6,7 @@
   int yPos2 = 600;
   int x=25;
   int y=200;
-  
+
   //Setup Background
 void setup() {
   size(1200, 700);
@@ -20,7 +20,8 @@ void draw(){
   makeRect2();
   
  //Allows for the paddles to move
-  keyPressed();
+  movePlayer1();
+  movePlayer2();
   
   //Spawns in Circles
    for (int i=0; i<myCircles.size(); i++) {
@@ -36,24 +37,49 @@ void draw(){
 //Makes opponents paddle
 void makeRect1(){
   fill(31, 210, 226);
-   rect(500, 50, 200, 35);
+   rect(xPos1, yPos1, 200, 35);
+   
+   if(keyCode=='D' ){
+    xPos1+=15;
+  }else if(keyCode=='A'){
+    xPos1-=15;
+  } 
 }
 
 //Makes players paddle
 void makeRect2(){
   fill(230, 168, 63);
   rect(xPos2, yPos2, 200, 35);
+  
+  if(keyCode==RIGHT){
+    xPos2+=5;
+  } else if(keyCode==LEFT){
+    xPos2-=5;
+  }
 }
 
 //Allows player so move their paddle
-void keyPressed(){
+void movePlayer1(){
+  if(keyCode=='D' ){
+    xPos1+=15;
+  }else if(keyCode=='A'){
+    xPos1-=15;
+  } 
+}
+
+
+void movePlayer2(){
   if(keyCode==RIGHT){
     xPos2+=8;
   } else if(keyCode==LEFT){
     xPos2-=8;
-  } 
- 
-}
+  }
+
+  }
+  
+
+
+
 
 //FIX SO THAT WHEN THE GAME STARTS, THE OPPONENT DROPS THE BALL
 void mousePressed() {
@@ -85,7 +111,8 @@ class Circle {
       xspeed*=-1;
     } else if (x<25) {
       xspeed*=-1;
-    } else{
+    } else if(y>=yPos2-30 && y<=yPos2+10 && x>=xPos2 && x<=xPos2+100){
+      yspeed--;
     }
   }
 
