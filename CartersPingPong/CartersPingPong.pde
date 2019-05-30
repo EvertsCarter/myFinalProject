@@ -1,4 +1,4 @@
-  //Varaibles
+//Varaibles
   ArrayList <Circle> myCircles=new ArrayList<Circle>();
   int xPos1 = 500;
   int yPos1 = 50;
@@ -20,8 +20,7 @@ void draw(){
   makeRect2();
   
  //Allows for the paddles to move
-  movePlayer1();
-  movePlayer2();
+  movePlayers();
   
   //Spawns in Circles
    for (int i=0; i<myCircles.size(); i++) {
@@ -38,12 +37,7 @@ void draw(){
 void makeRect1(){
   fill(31, 210, 226);
    rect(xPos1, yPos1, 200, 35);
-   
-   if(keyCode=='D' ){
-    xPos1+=15;
-  }else if(keyCode=='A'){
-    xPos1-=15;
-  } 
+ 
 }
 
 //Makes players paddle
@@ -51,30 +45,19 @@ void makeRect2(){
   fill(230, 168, 63);
   rect(xPos2, yPos2, 200, 35);
   
-  if(keyCode==RIGHT){
-    xPos2+=5;
-  } else if(keyCode==LEFT){
-    xPos2-=5;
-  }
 }
 
 //Allows player so move their paddle
-void movePlayer1(){
-  if(keyCode=='D' ){
-    xPos1+=15;
-  }else if(keyCode=='A'){
-    xPos1-=15;
-  } 
-}
-
-
-void movePlayer2(){
+void movePlayers(){
   if(keyCode==RIGHT){
     xPos2+=8;
   } else if(keyCode==LEFT){
     xPos2-=8;
-  }
-
+  }else if(keyCode=='D' ){
+    xPos1+=15;
+  }else if(keyCode=='A'){
+    xPos1-=15;
+  } 
   }
   
 
@@ -111,12 +94,15 @@ class Circle {
       xspeed*=-1;
     } else if (x<25) {
       xspeed*=-1;
-    } else if(y>=yPos2-30 && y<=yPos2+10 && x>=xPos2 && x<=xPos2+100){
+    } else if(y>=yPos2-30 && y<=yPos2+10 && x>=xPos2 && x<=xPos2+200){
+      yspeed+=velocity;
       yspeed--;
     }
   }
-
-  
- 
-
 }
+ /*void test(){
+ if(keypressed(UP)){
+ background(255, 255, 255) ; 
+ }
+ }
+ */
