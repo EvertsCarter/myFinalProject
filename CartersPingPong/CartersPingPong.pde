@@ -20,7 +20,9 @@ void draw(){
   makeRect2();
   
  //Allows for the paddles to move
-  movePlayers();
+  keyTyped();
+  
+
   
   //Spawns in Circles
    for (int i=0; i<myCircles.size(); i++) {
@@ -48,17 +50,19 @@ void makeRect2(){
 }
 
 //Allows player so move their paddle
-void movePlayers(){
+void keyTyped(){
   if(keyCode==RIGHT){
     xPos2+=8;
   } else if(keyCode==LEFT){
     xPos2-=8;
   }else if(keyCode=='D' ){
-    xPos1+=15;
+    xPos1+=8;
   }else if(keyCode=='A'){
-    xPos1-=15;
+    xPos1-=8;
   } 
   }
+  
+
   
 
 
@@ -73,9 +77,9 @@ class Circle {
 
   float x;
   float y;
-  float xspeed=random(-3, 3);
-  float yspeed=random(3);
-  float velocity=.01;
+  float xspeed=random(-1, 3);
+  float yspeed=random(0, 5);
+  float velocity=.03;
 
 //Sets the ball to spawn at mouse click
   Circle() {
@@ -94,15 +98,12 @@ class Circle {
       xspeed*=-1;
     } else if (x<25) {
       xspeed*=-1;
-    } else if(y>=yPos2-30 && y<=yPos2+10 && x>=xPos2 && x<=xPos2+200){
+    } else if(y>=yPos2-20 && y<=yPos2+10 && x>=xPos2 && x<=xPos2+200){
       yspeed+=velocity;
-      yspeed--;
+      yspeed*=-1.33;
+    }else if(y<yPos1+20 && y>=yPos1-10 && x>=xPos1 && x<=xPos1+200){
+      yspeed+=velocity;
+      yspeed*=-1.33;
     }
   }
 }
- /*void test(){
- if(keypressed(UP)){
- background(255, 255, 255) ; 
- }
- }
- */
