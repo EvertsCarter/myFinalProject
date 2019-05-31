@@ -1,4 +1,4 @@
-  //Varaibles
+//Varaibles
   ArrayList <Circle> myCircles=new ArrayList<Circle>();
   int xPos1 = 500;
   int yPos1 = 50;
@@ -6,7 +6,7 @@
   int yPos2 = 600;
   int x=25;
   int y=200;
-  
+
   //Setup Background
 void setup() {
   size(1200, 700);
@@ -20,7 +20,10 @@ void draw(){
   makeRect2();
   
  //Allows for the paddles to move
-  keyPressed();
+  movePlayers1();
+  movePlayers2();
+  
+
   
   //Spawns in Circles
    for (int i=0; i<myCircles.size(); i++) {
@@ -37,28 +40,40 @@ void draw(){
 void makeRect1(){
   fill(31, 210, 226);
    rect(xPos1, yPos1, 200, 35);
+ 
 }
 
 //Makes players paddle
 void makeRect2(){
   fill(230, 168, 63);
   rect(xPos2, yPos2, 200, 35);
+  
 }
 
 //Allows player so move their paddle
-void keyPressed(){
-  if(keyCode==RIGHT){
-    xPos2+=8;
-  } else if(keyCode==LEFT){
-    xPos2-=8;
-  }
-  
-  if(keyCode=='D' ){
-    xPos1+=15;
-  }else if(keyCode=='A'){
+void movePlayers1(){
+   if(keyPressed){ 
+    if(key=='D' || key=='d'){
+     xPos1+=15; 
+    }else if(key=='A' || key=='a'){
     xPos1-=15;
+  }  
   }
 }
+
+void movePlayers2(){
+  if(keyPressed){
+     if(keyCode==RIGHT){
+    xPos2+=15;
+  } else if(keyCode==LEFT){
+    xPos2-=15;
+  } 
+  }
+}
+  
+
+  
+
 
 
 
@@ -71,9 +86,9 @@ class Circle {
 
   float x;
   float y;
-  float xspeed=random(-3, 3);
-  float yspeed=random(3);
-  float velocity=.01;
+  float xspeed=random(-1, 3);
+  float yspeed=random(0, 5);
+  float velocity=.03;
 
 //Sets the ball to spawn at mouse click
   Circle() {
@@ -92,12 +107,12 @@ class Circle {
       xspeed*=-1;
     } else if (x<25) {
       xspeed*=-1;
-    } else if(y>=yPos2){
-     //bounce ball back up
+    } else if(y>=yPos2-20 && y<=yPos2+10 && x>=xPos2 && x<=xPos2+200){
+      yspeed+=velocity;
+      yspeed*=-1.33;
+    }else if(y<yPos1+20 && y>=yPos1-10 && x>=xPos1 && x<=xPos1+200){
+      yspeed+=velocity;
+      yspeed*=-1.33;
     }
   }
-
-  
- 
-
 }
