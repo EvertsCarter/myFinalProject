@@ -1,11 +1,12 @@
 //Varaibles
   ArrayList <Circle> myCircles=new ArrayList<Circle>();
-  int xPos1 = 500;
-  int yPos1 = 50;
+  int xPos1 = 0;
+  int yPos1 = 0;
   int xPos2 = 500;
   int yPos2 = 600;
   int x=25;
   int y=200;
+  int count=0;
 
   //Setup Background
 void setup() {
@@ -16,52 +17,43 @@ void setup() {
 void draw(){
   //Sets up backgroud and paddles
   background(0, 0, 0);
-  makeRect1();
-  makeRect2();
+  makeBoarders();
+  makeRect();
+  
+  //Displays score
+  fill(255, 255, 255);
+  text("SCORE: " + count, 1100, 25);
   
  //Allows for the paddles to move
-  movePlayers1();
-  movePlayers2();
-  
-
+  movePlayer();
   
   //Spawns in Circles
    for (int i=0; i<myCircles.size(); i++) {
     myCircles.get(i).display();
   }
-  
-  
- 
 }
 
+void drawBackground(){
+  background(random(0, 255), random(0, 255), random(0, 255));
+}
 
 
 //Makes opponents paddle
-void makeRect1(){
+void makeBoarders(){
   fill(31, 210, 226);
-   rect(xPos1, yPos1, 200, 35);
- 
+  rect(0, 0, 20, 700);
+  rect(1180, 0, 50, 700);
+  rect(xPos1, yPos1, 1200, 35);   
 }
 
 //Makes players paddle
-void makeRect2(){
+void makeRect(){
   fill(230, 168, 63);
-  rect(xPos2, yPos2, 200, 35);
-  
+  rect(xPos2, yPos2, 200, 35); 
 }
 
-//Allows player so move their paddle
-void movePlayers1(){
-   if(keyPressed){ 
-    if(key=='D' || key=='d'){
-     xPos1+=15; 
-    }else if(key=='A' || key=='a'){
-    xPos1-=15;
-  }  
-  }
-}
-
-void movePlayers2(){
+//Allows player to move their paddle
+void movePlayer(){
   if(keyPressed){
      if(keyCode==RIGHT){
     xPos2+=15;
@@ -83,12 +75,11 @@ void mousePressed() {
 }
 
 class Circle {
-
   float x;
   float y;
-  float xspeed=random(-1, 3);
-  float yspeed=random(0, 5);
-  float velocity=.03;
+  float xspeed=random(6, 7);
+  float yspeed=random(7, 8);
+  float velocity=.05;
 
 //Sets the ball to spawn at mouse click
   Circle() {
@@ -104,15 +95,22 @@ class Circle {
     x+=xspeed;
     y+=yspeed;
     if (x>1180) {
+      xspeed+=velocity;
       xspeed*=-1;
-    } else if (x<25) {
+      count++;
+    } else if (x<20) {
+      xspeed+=velocity;
       xspeed*=-1;
+      count++;
     } else if(y>=yPos2-20 && y<=yPos2+10 && x>=xPos2 && x<=xPos2+200){
       yspeed+=velocity;
-      yspeed*=-1.33;
-    }else if(y<yPos1+20 && y>=yPos1-10 && x>=xPos1 && x<=xPos1+200){
+      yspeed*=-1;
+    }else if(y<yPos1+50 && y>=yPos1-10 && x>=xPos1 && x<=xPos1+1200){
       yspeed+=velocity;
-      yspeed*=-1.33;
+      yspeed*=-1;
+      count++;
+    }else if(y>yPos2+25){
+      text("    YOU LOSE \n YOUR SCORE: " + count, 600, 350);
     }
   }
 }
