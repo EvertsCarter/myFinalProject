@@ -111,7 +111,7 @@ public class Circle {
       yspeed*=-1;
       count++;
     }else if(y>mb1L && y>mb2L){
-      text("    YOU LOSE \n YOUR SCORE: " + count, 600, 350);
+      text("     YOU LOSE \n YOUR SCORE: " + count, 600, 350);
     }
   }
 }
