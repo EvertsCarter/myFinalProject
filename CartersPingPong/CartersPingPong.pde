@@ -1,85 +1,93 @@
 //Varaibles
   ArrayList <Circle> myCircles=new ArrayList<Circle>();
-  int xPos1 = 500;
-  int yPos1 = 50;
+  int xPos1 = 0;
+  int yPos1 = 0;
   int xPos2 = 500;
   int yPos2 = 600;
   int x=25;
   int y=200;
+  int mb1L= 700;
+  int mb2L= 700;
+  int mb1W= 25;
+  int count=0;
 
   //Setup Background
-void setup() {
+public void setup() {
   size(1200, 700);
 }
 
 //Basically the runner class
-void draw(){
+public void draw(){
   //Sets up backgroud and paddles
   background(0, 0, 0);
-  makeRect1();
-  makeRect2();
+  makeBoarders1();
+  makeBoarders2();
+  makeBoarders3();
+  makeRect();
+  
+  //Displays score
+  fill(255, 255, 255);
+  text("SCORE: " + count, 1100, 25);
   
  //Allows for the paddles to move
-  keyTyped();
-  
-
+  movePlayer();
   
   //Spawns in Circles
    for (int i=0; i<myCircles.size(); i++) {
     myCircles.get(i).display();
   }
-  
-  
- 
 }
 
-
-
-//Makes opponents paddle
-void makeRect1(){
+//Makes boarders
+public void makeBoarders1(){
   fill(31, 210, 226);
-   rect(xPos1, yPos1, 200, 35);
- 
+  rect(0, 0, 20, mb1L);   
+}
+
+public void makeBoarders2(){
+  fill(31, 210, 226);
+  rect(1180, 0, 50, 700);   
+}
+
+public void makeBoarders3(){
+  fill(31, 210, 226);
+  rect(xPos1, yPos1, 1200, 35);   
 }
 
 //Makes players paddle
-void makeRect2(){
+public void makeRect(){
   fill(230, 168, 63);
-  rect(xPos2, yPos2, 200, 35);
-  
+  rect(xPos2, yPos2, 200, 35); 
 }
 
-//Allows player so move their paddle
-void keyTyped(){
-  if(keyCode==RIGHT){
-    xPos2+=8;
+//Allows player to move their paddle
+public void movePlayer(){
+  if(keyPressed){
+     if(keyCode==RIGHT){
+    xPos2+=15;
   } else if(keyCode==LEFT){
-    xPos2-=8;
-  }else if(keyCode=='D' ){
-    xPos1+=8;
-  }else if(keyCode=='A'){
-    xPos1-=8;
-  } 
+    xPos2-=15;
+  } else if(keyCode==UP){
+    yPos2-=15;
+  } else if(keyCode==DOWN){
+    yPos2+=15;
   }
-  
-
-  
-
-
-
-
-//FIX SO THAT WHEN THE GAME STARTS, THE OPPONENT DROPS THE BALL
-void mousePressed() {
-  myCircles.add(new Circle());
+  }
 }
 
-class Circle {
+public void mousePressed() {
+  myCircles.add(new Circle());
+  setup();
+  draw();
+  count=0;
+}
 
+public class Circle {
   float x;
   float y;
-  float xspeed=random(-1, 3);
-  float yspeed=random(0, 5);
-  float velocity=.03;
+  float xspeed=random(6, 10);
+  float yspeed=random(7, 10);
+  float velocity=.07;
 
 //Sets the ball to spawn at mouse click
   Circle() {
@@ -94,16 +102,23 @@ class Circle {
     yspeed+=velocity;
     x+=xspeed;
     y+=yspeed;
-    if (x>1180) {
+    if (x>1180 && y<mb1L) {
+      xspeed+=velocity;
       xspeed*=-1;
-    } else if (x<25) {
+      count++;
+    } else if (x<25 && y<mb2L) {
+      xspeed+=velocity;
       xspeed*=-1;
+      count++;
     } else if(y>=yPos2-20 && y<=yPos2+10 && x>=xPos2 && x<=xPos2+200){
       yspeed+=velocity;
-      yspeed*=-1.33;
-    }else if(y<yPos1+20 && y>=yPos1-10 && x>=xPos1 && x<=xPos1+200){
+      yspeed*=-1;
+    }else if(y<=yPos1+50 && y>=yPos1-10 && x>=xPos1 && x<=xPos1+1200){
       yspeed+=velocity;
-      yspeed*=-1.33;
+      yspeed*=-1;
+      count++;
+    }else if(y>mb1L && y>mb2L){
+      text("     YOU LOSE \n YOUR SCORE: " + count, 600, 350);
     }
   }
 }
