@@ -64,29 +64,27 @@ public void makeRect(){
 public void movePlayer(){
   if(keyPressed){
      if(keyCode==RIGHT){
-    xPos2+=15;
+    xPos2+=20;
   } else if(keyCode==LEFT){
-    xPos2-=15;
+    xPos2-=20;
   } else if(keyCode==UP){
-    yPos2-=15;
+    yPos2-=20;
   } else if(keyCode==DOWN){
-    yPos2+=15;
+    yPos2+=20;
   }
   }
 }
 
 public void mousePressed() {
   myCircles.add(new Circle());
-  setup();
-  draw();
   count=0;
 }
 
 public class Circle {
   float x;
   float y;
-  float xspeed=random(6, 10);
-  float yspeed=random(7, 10);
+  float xspeed=random(7, 15);
+  float yspeed=random(7, 15);
   float velocity=.07;
 
 //Sets the ball to spawn at mouse click
